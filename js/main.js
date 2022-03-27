@@ -13,12 +13,9 @@ const intFromRange = function (minRange, maxRange) {
 
 //stringLimit - функция проверки максимальной длинны строки
 
-const stringLimit = function (verifiedText, maxLength) {
-  if (verifiedText.length <= maxLength) {
-    return true;
-  }
-  return false;
-};
+function stringLimit(verifiedText, maxLength) {
+  return (verifiedText.length <= maxLength);
+}
 
 // Функции от Кекса
 
