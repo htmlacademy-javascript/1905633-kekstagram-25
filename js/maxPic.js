@@ -9,7 +9,7 @@ const maxPic = function (object) {
   const bugPictureCommentCountContainer = bigPictureSection.querySelector('.social__comment-count');
   const bugPictureCommentLoader = bigPictureSection.querySelector('.comments-loader');
   const body = document.querySelector('body');
-  let fragment = document.createDocumentFragment();
+  const fragment = document.createDocumentFragment();
 
   bigPictureSection.classList.remove('hidden');
   bugPictureCommentCountContainer.classList.add('hidden');
@@ -32,24 +32,22 @@ const maxPic = function (object) {
     newCommentText.textContent = object.comments[j].message;
 
     fragment.append(newComment);
+  }
 
-  });
-}
+  bigPictureSocialComments.append(fragment);
 
-bigPictureSocialComments.append(fragment);
-
-const closeButton = bigPictureSection.querySelector('.big-picture__cancel');
-closeButton.addEventListener('click', () => {
-  bigPictureSection.classList.add('hidden');
-  body.classList.remove('modal-open');
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
+  const closeButton = bigPictureSection.querySelector('.big-picture__cancel');
+  closeButton.addEventListener('click', () => {
     bigPictureSection.classList.add('hidden');
     body.classList.remove('modal-open');
-  }
-};
+  });
 
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      bigPictureSection.classList.add('hidden');
+      body.classList.remove('modal-open');
+    }
+  });
+};
 
 export { maxPic };
