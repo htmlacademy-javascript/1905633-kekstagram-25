@@ -10,7 +10,7 @@ function dataGeneration() {
 
     pictureAttributes.id = id;
     pictureAttributes.url = `photos/${id}.jpg`;
-    pictureAttributes.description = `Это фото демонстрирует меня на моём ${id} отпуске`;
+    pictureAttributes.description = `Это фото с нашего ${id} отпуска`;
     pictureAttributes.likes = getRandomPositiveInteger(15, 200);
     pictureAttributes.comments = [];
 
