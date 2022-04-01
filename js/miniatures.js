@@ -2,6 +2,7 @@ const miniaturesDisplay = function (objects) {
   const picturesSection = document.querySelector('.pictures');
   const templateContent = document.querySelector('#picture').content;
   const pictureContainer = templateContent.querySelector('.picture');
+  const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < objects.length; i++) {
     const pictureContainerCloned = pictureContainer.cloneNode(true);
@@ -13,8 +14,9 @@ const miniaturesDisplay = function (objects) {
     pictureLikes.textContent = objects[i].likes;
     pictureComments.textContent = objects[i].comments.length - 1;
 
-    picturesSection.append(pictureContainerCloned);
+    fragment.append(pictureContainerCloned);
   }
+  picturesSection.append(fragment);
 };
 
 export { miniaturesDisplay };
