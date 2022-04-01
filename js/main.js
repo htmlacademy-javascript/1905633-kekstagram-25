@@ -1,3 +1,4 @@
 import { dataGeneration } from './data.js';
+import { miniaturesDisplay } from './miniatures.js';
 
-dataGeneration ();
+miniaturesDisplay(dataGeneration ());
