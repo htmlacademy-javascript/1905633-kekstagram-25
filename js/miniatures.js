@@ -1,3 +1,5 @@
+import {maxPic} from './maxPic.js';
+
 const miniaturesDisplay = function (objects) {
   const picturesSection = document.querySelector('.pictures');
   const templateContent = document.querySelector('#picture').content;
@@ -14,7 +16,12 @@ const miniaturesDisplay = function (objects) {
     pictureLikes.textContent = objects[i].likes;
     pictureComments.textContent = objects[i].comments.length - 1;
 
+    pictureContainerCloned.addEventListener ('click', () => {
+      maxPic(objects[i]);
+    });
+
     fragment.append(pictureContainerCloned);
+
   }
   picturesSection.append(fragment);
 };
