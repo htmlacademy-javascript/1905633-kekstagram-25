@@ -34,6 +34,7 @@ const maxPic = function (object) {
     fragment.append(newComment);
   }
 
+  bigPictureSocialComments.innerHTML = '';
   bigPictureSocialComments.append(fragment);
 
   const closeButton = bigPictureSection.querySelector('.big-picture__cancel');
