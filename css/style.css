@@ -669,6 +669,11 @@ main {
   border: none;
 }
 
+.text__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .text__hashtags {
   width: 450px;
 
