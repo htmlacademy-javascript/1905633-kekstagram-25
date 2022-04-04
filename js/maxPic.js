@@ -6,22 +6,22 @@ const maxPic = function (object) {
   const bigPictureCommentsCount = bigPictureSection.querySelector('.comments-count');
   const bigPictureSocialComments = bigPictureSection.querySelector('.social__comments');
   const bigPictureDescription = bigPictureSection.querySelector('.social__caption');
-  const bugPictureCommentCountContainer = bigPictureSection.querySelector('.social__comment-count');
-  const bugPictureCommentLoader = bigPictureSection.querySelector('.comments-loader');
+  const visibleComments = document.querySelector('.comments-visible');
+  // const bugPictureCommentCountContainer = bigPictureSection.querySelector('.social__comment-count');
+  // const bugPictureCommentLoader = bigPictureSection.querySelector('.comments-loader');
   const body = document.querySelector('body');
   const fragment = document.createDocumentFragment();
 
   bigPictureSection.classList.remove('hidden');
-  bugPictureCommentCountContainer.classList.add('hidden');
-  bugPictureCommentLoader.classList.add('hidden');
+
   body.classList.add('modal-open');
 
   bigPictureImageTag.src = object.url;
   bigPictureLikesCount.textContent = object.likes;
-  bigPictureCommentsCount.textContent = object.comments.length - 1;
+  bigPictureCommentsCount.textContent = object.comments.length;
   bigPictureDescription.textContent = object.description;
 
-  for (let j = 1; j < object.comments.length; j++) {
+  for (let j = 0; j < object.comments.length; j++) {
     const existingComment = document.querySelector('.social__comment');
     const newComment = existingComment.cloneNode(true);
     const newCommentImage = newComment.querySelector('img');
@@ -34,6 +34,7 @@ const maxPic = function (object) {
     fragment.append(newComment);
   }
 
+  visibleComments.innerHTML = '5';
   bigPictureSocialComments.innerHTML = '';
   bigPictureSocialComments.append(fragment);
 
