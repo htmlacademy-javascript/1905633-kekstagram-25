@@ -21,7 +21,7 @@ function dataGeneration() {
       commentIdList[j] = j + 1;
     }
 
-    for (let j = 1; j <= 10; j++) {
+    for (let j = 0; j < 12; j++) {
       const commentAttributes = {};
       const RandomCommentIdListElement = getRandomPositiveInteger(0, commentIdList.length - 1);
       commentAttributes.id = commentIdList[RandomCommentIdListElement];
