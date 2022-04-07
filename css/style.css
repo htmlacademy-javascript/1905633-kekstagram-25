@@ -673,6 +673,11 @@ main {
  * Блок добавления хэштегов и комментария к изображению
  */
 
+.text__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .text {
   margin: 0;
   padding: 0;
