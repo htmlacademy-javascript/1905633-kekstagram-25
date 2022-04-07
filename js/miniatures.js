@@ -1,4 +1,5 @@
 import {maxPic} from './maxPic.js';
+import { expandComments } from './expand.js';
 
 const miniaturesDisplay = function (objects) {
   const picturesSection = document.querySelector('.pictures');
@@ -18,6 +19,7 @@ const miniaturesDisplay = function (objects) {
 
     pictureContainerCloned.addEventListener ('click', () => {
       maxPic(objects[i]);
+      expandComments();
     });
 
     fragment.append(pictureContainerCloned);
