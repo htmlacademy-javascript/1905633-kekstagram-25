@@ -18,6 +18,9 @@ const dataformToggle = function () {
     imageUploadComment.value = '';
     picturePreview.className = '';
     picturePreview.classList.add('img-upload__picture');
+    const scale = document.querySelector('.scale__control--value');
+    scale.value = '100%';
+    picturePreview.style = '';
   }
 
   imageUploadCloseButton.addEventListener('click', () => {

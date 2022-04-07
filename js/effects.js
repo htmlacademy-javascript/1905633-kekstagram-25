@@ -94,6 +94,16 @@ function visualEffects() {
     });
   }
 
+  const imageUploadCloseButton = document.querySelector('.img-upload__cancel');
+  imageUploadCloseButton.addEventListener('click', () => {
+    sliderElement.classList.add('hidden');
+  });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      sliderElement.classList.add('hidden');
+    }
+  });
 }
 
 export { visualEffects };
