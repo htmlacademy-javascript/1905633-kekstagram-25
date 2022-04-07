@@ -31,6 +31,9 @@ function writeError(field, error) {
 
 function checkHashtags(list) {
   let failedChecks = 0;
+  if (list.length === 1 && list[0] === '') {
+    return true;
+  }
   for (let i = 0; i < list.length; i++) {
     if (list[i] === '') {
       writeError('hashtag', 'Уберите двойной пробел');
@@ -77,6 +80,7 @@ function checkComments() {
   const comment = document.querySelector('.text__description');
   if (comment.value.length > 140) {
     writeError('description', 'Комментарий не может быть длиннее 140 символов');
+    document.querySelector('.text__hashtags').style.marginBottom = '0px';
     return false;
   }
   return true;
@@ -88,15 +92,20 @@ const formValidation = function () {
   imageUploadHashtag.addEventListener('change', () => {
     const hashtagText = imageUploadHashtag.value;
     const hashtagsList = hashtagText.split(' ');
+    const upperField = document.querySelector('.img-upload__effects');
+    upperField.style.marginBottom = '10px';
+
 
     if (checkHashtags(hashtagsList)) {
       const errorLabel = document.querySelector('.text__hashtag-error');
       errorLabel.textContent = '';
+      upperField.style.marginBottom = '30px';
     }
 
     if (checkComments()) {
       const errorLabel = document.querySelector('.text__description-error');
       errorLabel.textContent = '';
+      imageUploadHashtag.style.marginBottom = '20px';
     }
   });
 
