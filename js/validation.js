@@ -95,7 +95,6 @@ const formValidation = function () {
     const upperField = document.querySelector('.img-upload__effects');
     upperField.style.marginBottom = '10px';
 
-
     if (checkHashtags(hashtagsList)) {
       const errorLabel = document.querySelector('.text__hashtag-error');
       errorLabel.textContent = '';
