@@ -41,6 +41,12 @@ main {
   position: relative;
 }
 
+.notification-message {
+  text-align: center;
+  font-size: 40px;
+  line-height: 50px;
+}
+
 .content-box-component {
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
