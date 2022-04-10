@@ -30,4 +30,67 @@ function checkStringLength(string, length) {
   return string.length <= length;
 }
 
-export {intFromRange, stringLimit, getRandomPositiveInteger, checkStringLength};
+function refreshForm() {
+  const imageUploadInput = document.querySelector('.img-upload__input');
+  const imageUploadHashtag = document.querySelector('.text__hashtags');
+  const imageUploadComment = document.querySelector('.text__description');
+  const picturePreview = document.querySelector('.img-upload__picture');
+  const errorLabel = document.querySelector('.text__hashtag-error');
+
+  imageUploadInput.value = '';
+  imageUploadHashtag.value = '';
+  imageUploadComment.value = '';
+  picturePreview.className = '';
+  picturePreview.classList.add('img-upload__picture');
+  const scale = document.querySelector('.scale__control--value');
+  scale.value = '100%';
+  picturePreview.style = '';
+  errorLabel.textContent = '';
+}
+
+function closeModal(refresh) {
+  const imageUploadWindow = document.querySelector('.img-upload__overlay');
+  const body = document.querySelector('body');
+  const imageUploadCloseButton = document.querySelector('.img-upload__cancel');
+
+  imageUploadCloseButton.addEventListener('click', () => {
+    imageUploadWindow.classList.add('hidden');
+    body.classList.remove('modal-open');
+    refresh();
+  });
+}
+
+function getContentOfTemplate(templateID, sectionClass) {
+  const template = document.querySelector(`#${templateID}`).content;
+  const section = template.querySelector(`.${sectionClass}`);
+  const clonedSection = section.cloneNode(true);
+  return clonedSection;
+}
+
+function hideElementOnClickOutside(clickElement, hideElement) {
+  document.addEventListener('click', () => {
+    // hideElement.classList.add('hidden');
+    hideElement.remove();
+  });
+  clickElement.addEventListener('click', (evt) => {
+    evt.stopPropagation();
+  });
+}
+
+function hideElementOnESC(element) {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      element.remove();
+    }
+  });
+}
+
+function hideElementOnButtonClick(element) {
+  const button = element.querySelector('button');
+  button.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    element.remove();
+  });
+}
+
+export { intFromRange, stringLimit, getRandomPositiveInteger, checkStringLength, refreshForm, closeModal, getContentOfTemplate, hideElementOnClickOutside, hideElementOnESC, hideElementOnButtonClick };

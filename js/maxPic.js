@@ -34,7 +34,11 @@ const maxPic = function (object) {
     fragment.append(newComment);
   }
 
-  visibleComments.innerHTML = '5';
+  if (object.comments.length < 5) {
+    visibleComments.innerHTML = object.comments.length;
+  } else {
+    visibleComments.innerHTML = '5';
+  }
   bigPictureSocialComments.innerHTML = '';
   bigPictureSocialComments.append(fragment);
 

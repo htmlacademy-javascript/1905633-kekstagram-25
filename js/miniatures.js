@@ -15,7 +15,7 @@ const miniaturesDisplay = function (objects) {
 
     picture.src = objects[i].url;
     pictureLikes.textContent = objects[i].likes;
-    pictureComments.textContent = objects[i].comments.length - 1;
+    pictureComments.textContent = objects[i].comments.length;
 
     pictureContainerCloned.addEventListener ('click', () => {
       maxPic(objects[i]);

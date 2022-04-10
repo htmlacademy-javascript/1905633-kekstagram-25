@@ -1,3 +1,5 @@
+import { getContentOfTemplate, hideElementOnClickOutside, hideElementOnESC, refreshForm, hideElementOnButtonClick } from './util.js';
+
 const form = document.querySelector('.img-upload__form');
 const allowFormSending = {
   hashtags: false,
@@ -108,13 +110,39 @@ const formValidation = function () {
     }
   });
 
+  function feedbackOnSubmit(feedbackType) {
+    document.querySelector('.img-upload__overlay').classList.add('hidden');
+    document.querySelector('body').classList.remove('modal-open');
+    const section = getContentOfTemplate(`${feedbackType}`, `${feedbackType}`);
+    const sectionInner = section.querySelector(`.${feedbackType}__inner`);
+    document.querySelector('body').append(section);
+    refreshForm();
+    hideElementOnClickOutside(sectionInner, section);
+    hideElementOnESC(section);
+    hideElementOnButtonClick(section);
+  }
+
   form.addEventListener('submit', (evt) => {
+    const formData = new FormData(form);
     const hashtagText = imageUploadHashtag.value;
     const hashtagsList = hashtagText.split(' ');
     allowFormSending.hashtags = checkHashtags(hashtagsList);
     allowFormSending.comments = checkComments();
     if (!allowFormSending.hashtags || !allowFormSending.comments) {
       evt.preventDefault();
+    } else {
+      evt.preventDefault();
+      fetch(
+        'https://25.javascript.pages.academ/kekstagram',
+        {
+          method: 'POST',
+          body: formData
+        },
+      ).then(() => {
+        feedbackOnSubmit('success');
+      }).catch(() => {
+        feedbackOnSubmit('error');
+      });
     }
   });
 };
