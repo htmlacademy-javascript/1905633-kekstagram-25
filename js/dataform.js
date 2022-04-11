@@ -1,4 +1,5 @@
 import { refreshForm, closeModal } from './util.js';
+import { uploadPicture } from './upload.js';
 
 const dataformToggle = function () {
   const imageUploadWindow = document.querySelector('.img-upload__overlay');
@@ -8,6 +9,7 @@ const dataformToggle = function () {
   imageUploadInput.addEventListener('change', () => {
     imageUploadWindow.classList.remove('hidden');
     body.classList.add('modal-open');
+    uploadPicture();
   });
 
   closeModal(refreshForm);
