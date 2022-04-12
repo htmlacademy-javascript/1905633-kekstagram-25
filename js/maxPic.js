@@ -7,8 +7,6 @@ const maxPic = function (object) {
   const bigPictureSocialComments = bigPictureSection.querySelector('.social__comments');
   const bigPictureDescription = bigPictureSection.querySelector('.social__caption');
   const visibleComments = document.querySelector('.comments-visible');
-  // const bugPictureCommentCountContainer = bigPictureSection.querySelector('.social__comment-count');
-  // const bugPictureCommentLoader = bigPictureSection.querySelector('.comments-loader');
   const body = document.querySelector('body');
   const fragment = document.createDocumentFragment();
 

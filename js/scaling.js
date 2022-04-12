@@ -4,8 +4,6 @@ function scalePictures() {
   const currentSize = document.querySelector('.scale__control--value');
   const picture = document.querySelector('.img-upload__picture');
 
-  // const currentSizeNoPercent = currentSize.value.substring(0, 3);
-  // let size = Number(currentSizeNoPercent);
   let size = 100;
   currentSize.value = `${size}%`;
 

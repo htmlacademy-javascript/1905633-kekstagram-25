@@ -85,5 +85,3 @@ function enableFilters(picturesArray) {
 
 export { enableFilters };
 
-// debounce(  () => renderSimilarList(wizards),  RERENDER_DELAY, );
-
