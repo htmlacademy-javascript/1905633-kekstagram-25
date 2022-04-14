@@ -1,4 +1,4 @@
-const uploadPicture = function () {
+const uploadPicture = () => {
   const uploadInput = document.querySelector('#upload-file');
   const picturePreview = document.querySelector('.img-upload__picture');
   const effectsPreview = document.querySelectorAll('.effects__preview');

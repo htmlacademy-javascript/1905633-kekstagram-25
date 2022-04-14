@@ -1,7 +1,7 @@
 import { refreshForm, closeModal } from './util.js';
 import { uploadPicture } from './upload.js';
 
-const dataformToggle = function () {
+const toggleDataform = () => {
   const imageUploadWindow = document.querySelector('.img-upload__overlay');
   const imageUploadInput = document.querySelector('.img-upload__input');
   const body = document.querySelector('body');
@@ -14,24 +14,24 @@ const dataformToggle = function () {
 
   closeModal(refreshForm);
 
-  const listOfClosed = {};
-
-  function isFieldFocused(field) {
+  const listOfFocused = {};
+  const getFieldFocused = (field) => {
     const place = document.querySelector(`.text__${field}`);
     place.addEventListener('focus', () => {
-      listOfClosed[field] = true;
+      listOfFocused[field] = true;
     });
     place.addEventListener('blur', () => {
-      listOfClosed[field] = false;
+      listOfFocused[field] = false;
     });
-  }
+  };
 
-  isFieldFocused('hashtags');
-  isFieldFocused('description');
+
+  getFieldFocused('hashtags');
+  getFieldFocused('description');
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
-      if (!listOfClosed['hashtags'] && !listOfClosed['description']) {
+      if (!listOfFocused['hashtags'] && !listOfFocused['description']) {
         imageUploadWindow.classList.add('hidden');
         body.classList.remove('modal-open');
         refreshForm();
@@ -42,4 +42,4 @@ const dataformToggle = function () {
 
 };
 
-export { dataformToggle };
+export { toggleDataform };

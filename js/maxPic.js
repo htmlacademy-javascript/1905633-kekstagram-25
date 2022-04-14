@@ -1,4 +1,4 @@
-const maxPic = function (object) {
+const enlargePicture = (object) => {
   const bigPictureSection = document.querySelector('.big-picture');
   const bigPictureImage = bigPictureSection.querySelector('.big-picture__img');
   const bigPictureImageTag = bigPictureImage.querySelector('img');
@@ -11,7 +11,6 @@ const maxPic = function (object) {
   const fragment = document.createDocumentFragment();
 
   bigPictureSection.classList.remove('hidden');
-
   body.classList.add('modal-open');
 
   bigPictureImageTag.src = object.url;
@@ -39,19 +38,6 @@ const maxPic = function (object) {
   }
   bigPictureSocialComments.innerHTML = '';
   bigPictureSocialComments.append(fragment);
-
-  const closeButton = bigPictureSection.querySelector('.big-picture__cancel');
-  closeButton.addEventListener('click', () => {
-    bigPictureSection.classList.add('hidden');
-    body.classList.remove('modal-open');
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      bigPictureSection.classList.add('hidden');
-      body.classList.remove('modal-open');
-    }
-  });
 };
 
-export { maxPic };
+export { enlargePicture };

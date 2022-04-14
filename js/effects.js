@@ -1,9 +1,10 @@
-function visualEffects() {
+const applyEffects = () => {
   const picture = document.querySelector('.img-upload__picture');
   const radioList = document.querySelector('.effects__list');
   const radioItems = radioList.querySelectorAll('.effects__item');
   const sliderElement = document.querySelector('.effect-level__slider');
   const sliderValue = document.querySelector('.effect-level__value');
+  const sliderBackground = document.querySelector('.img-upload__effect-level');
 
   const none = {
     filter: '',
@@ -54,7 +55,7 @@ function visualEffects() {
     connect: 'lower',
   });
 
-  function setSliderSettings(effect) {
+  const setSliderSettings = (effect) => {
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: effect.min,
@@ -63,7 +64,7 @@ function visualEffects() {
       step: effect.step,
       start: effect.max,
     });
-  }
+  };
 
   for (let i = 0; i < radioItems.length; i++) {
     const icon = radioItems[i].querySelector('span');
@@ -74,36 +75,27 @@ function visualEffects() {
       picture.classList.add('img-upload__picture');
       picture.classList.add(newClass);
       if (i > 0) {
+        sliderBackground.classList.remove('hidden');
         sliderElement.classList.remove('hidden');
         setSliderSettings(effectSliderSettings[i]);
       } else {
+        sliderBackground.classList.add('hidden');
         sliderElement.classList.add('hidden');
         picture.style.filter = 'none';
       }
       sliderElement.noUiSlider.off('update');
       sliderElement.noUiSlider.on('update', () => {
         sliderValue.value = sliderElement.noUiSlider.get();
-        if (i < 3 || i === 5) {
+        if (effectSliderSettings[i].max === 1) {
           picture.style.filter = `${effectSliderSettings[i].filter}(${sliderElement.noUiSlider.get()})`;
-        } else if (i === 3) {
+        } else if (effectSliderSettings[i].max === 100) {
           picture.style.filter = `${effectSliderSettings[i].filter}(${sliderElement.noUiSlider.get()}%)`;
-        } else if (i === 4) {
+        } else if (effectSliderSettings[i].max === 3) {
           picture.style.filter = `${effectSliderSettings[i].filter}(${sliderElement.noUiSlider.get()}px)`;
         }
       });
     });
   }
+};
 
-  const imageUploadCloseButton = document.querySelector('.img-upload__cancel');
-  imageUploadCloseButton.addEventListener('click', () => {
-    sliderElement.classList.add('hidden');
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      sliderElement.classList.add('hidden');
-    }
-  });
-}
-
-export { visualEffects };
+export { applyEffects };
