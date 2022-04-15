@@ -1,8 +1,8 @@
-import { miniaturesDisplay } from './miniatures.js';
-import { dataformToggle } from './dataform.js';
-import { formValidation } from './validation.js';
+import { displayMiniatures } from './miniatures.js';
+import { toggleDataform } from './dataform.js';
+import { validateForm } from './validation.js';
 import { scalePictures } from './scaling.js';
-import { visualEffects } from './effects.js';
+import { applyEffects } from './effects.js';
 import { showNotification } from './notification.js';
 
 
@@ -10,13 +10,13 @@ fetch(
   'https://25.javascript.pages.academy/kekstagram/data')
   .then((response) => response.json())
   .then((data) => {
-    miniaturesDisplay(data);
+    displayMiniatures(data);
   })
   .catch(() => {
     showNotification('Не удалось загрузить данные, попробуйте перезагрузить страницу', 'red');
   });
 
-dataformToggle();
-formValidation();
+toggleDataform();
+validateForm();
 scalePictures();
-visualEffects();
+applyEffects();

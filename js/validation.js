@@ -12,26 +12,27 @@ const allowFormSending = {
 //   errorTextClass: 'text__hashtag-error-text',
 // });
 
-function checkIfDuplicateExists(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    arr[i] = arr[i].toLowerCase();
+const checkIfDuplicateExists = (array) => {
+  for (let i = 0; i < array.length; i++) {
+    array[i] = array[i].toLowerCase();
   }
-  return new Set(arr).size !== arr.length;
-}
+  return new Set(array).size !== array.length;
+};
 
-function onlyLettersAndNumbers(str) {
+const limitLettersAndNumbers = (str) => {
   const hashWithNoFirstChar = str.substring(1, str.length);
   return /^[A-Za-z0-9]*$/.test(hashWithNoFirstChar);
-}
+};
 
-// field - это либо hashtag, либо description
-function writeError(field, error) {
+const writeError = (field, error) => {
   const errorLabel = document.querySelector(`.text__${field}-error`);
   errorLabel.textContent = error;
   errorLabel.style.color = '#FF0000';
-}
+};
 
-function checkHashtags(list) {
+const checkHashtags = (list) => {
+  const hashtagSymbolLimit = 20;
+  const hashtagWordLimit = 5;
   let failedChecks = 0;
   if (list.length === 1 && list[0] === '') {
     return true;
@@ -42,7 +43,7 @@ function checkHashtags(list) {
       failedChecks++;
       return false;
     } else {
-      if (!onlyLettersAndNumbers(list[i])) {
+      if (!limitLettersAndNumbers(list[i])) {
         failedChecks++;
         writeError('hashtag', 'Тэг должен состоять только из букв и цифр');
       }
@@ -50,8 +51,8 @@ function checkHashtags(list) {
         failedChecks++;
         writeError('hashtag', 'Нет # в начале');
       }
-      if (list[i].length > 20) {
-        writeError('hashtag', 'Тэг длиннее 20 символов');
+      if (list[i].length > hashtagSymbolLimit) {
+        writeError('hashtag', `Тэг длиннее ${hashtagSymbolLimit} символов`);
         failedChecks++;
       }
       if (list[i].charAt(0) === '#' && list[i].length === 1) {
@@ -68,27 +69,28 @@ function checkHashtags(list) {
     writeError('hashtag', 'Тэги не могут быть одинаковыми');
     failedChecks++;
   }
-  if (list.length > 5) {
-    writeError('hashtag', 'Тэгов не может быть больше 5');
+  if (list.length > hashtagWordLimit) {
+    writeError('hashtag', `Тэгов не может быть больше ${hashtagWordLimit}`);
     failedChecks++;
   }
   if (failedChecks !== 0) {
     return false;
   }
   return true;
-}
+};
 
-function checkComments() {
+const checkComments = () => {
   const comment = document.querySelector('.text__description');
-  if (comment.value.length > 140) {
-    writeError('description', 'Комментарий не может быть длиннее 140 символов');
+  const commentSymbolLimit = 140;
+  if (comment.value.length > commentSymbolLimit) {
+    writeError('description', `Комментарий не может быть длиннее ${commentSymbolLimit} символов`);
     document.querySelector('.text__hashtags').style.marginBottom = '0px';
     return false;
   }
   return true;
-}
+};
 
-const formValidation = function () {
+const validateForm = () => {
   const imageUploadHashtag = document.querySelector('.text__hashtags');
 
   imageUploadHashtag.addEventListener('change', () => {
@@ -110,17 +112,18 @@ const formValidation = function () {
     }
   });
 
-  function feedbackOnSubmit(feedbackType) {
+  const feedbackOnSubmit = (feedbackType) => {
     document.querySelector('.img-upload__overlay').classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
     const section = getContentOfTemplate(`${feedbackType}`, `${feedbackType}`);
     const sectionInner = section.querySelector(`.${feedbackType}__inner`);
+    document.querySelector('.effect-level__slider').classList.add('hidden');
     document.querySelector('body').append(section);
     refreshForm();
     hideElementOnClickOutside(sectionInner, section);
     hideElementOnESC(section);
     hideElementOnButtonClick(section);
-  }
+  };
 
   form.addEventListener('submit', (evt) => {
     const formData = new FormData(form);
@@ -138,14 +141,19 @@ const formValidation = function () {
           method: 'POST',
           body: formData
         },
-      ).then(() => {
-        feedbackOnSubmit('success');
-      }).catch(() => {
-        feedbackOnSubmit('error');
-      });
+      )
+        .then((responce) => {
+          if (responce.ok) {
+            feedbackOnSubmit('success');
+          } else {
+            feedbackOnSubmit('error');
+          }
+        }).catch(() => {
+          feedbackOnSubmit('error');
+        });
     }
   });
 };
 
 
-export { formValidation };
+export { validateForm };

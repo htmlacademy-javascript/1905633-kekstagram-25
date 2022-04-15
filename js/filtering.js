@@ -1,6 +1,6 @@
 import { shuffleArray } from './util.js';
 
-function enableFilters(picturesArray) {
+const enableFilters = (picturesArray) => {
   const picturesSection = document.querySelector('.pictures');
   const filters = document.querySelector('.img-filters');
   const defaultFilter = filters.querySelector('#filter-default');
@@ -11,44 +11,42 @@ function enableFilters(picturesArray) {
   filters.classList.remove('img-filters--inactive');
   const defaultListClone = picturesArray.slice();
 
-  function highlightFilter(targetID) {
+  const highlightFilter = (targetID) => {
     const buttons = filters.querySelectorAll('button');
     buttons.forEach((element) => {
       element.classList.remove('img-filters__button--active');
     });
     const tagerButton = filters.querySelector(`#${targetID}`);
     tagerButton.classList.add('img-filters__button--active');
-  }
+  };
 
-  function erasePictures() {
+  const erasePictures = () => {
     picturesArray.forEach((element) => {
       element.remove();
     });
-  }
+  };
 
-  function debounce(callback, timeoutDelay = 500) {
-    return () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => callback(), timeoutDelay);
-    };
-  }
+  const debounce = (callback, timeoutDelay = 500) => () => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback(), timeoutDelay);
+  };
 
-  function showDefaultMiniatures() {
+  const showDefaultMiniatures = () => {
     erasePictures();
     defaultListClone.forEach((element) => {
       picturesSection.append(element);
     });
-  }
+  };
 
-  function showRandomMiniatures() {
+  const showRandomMiniatures = () => {
     const shuffledList = shuffleArray(picturesArray.slice()).slice(0, 10);
     erasePictures();
     shuffledList.forEach((element) => {
       picturesSection.append(element);
     });
-  }
+  };
 
-  function showDiscussedMiniatures() {
+  const showDiscussedMiniatures = () => {
     erasePictures();
     picturesArray.sort((a, b) => {
       if (Number(a.querySelector('.picture__likes').textContent) < Number(b.querySelector('.picture__likes').textContent)) {
@@ -63,7 +61,7 @@ function enableFilters(picturesArray) {
     picturesArray.forEach((element) => {
       picturesSection.append(element);
     });
-  }
+  };
 
 
   defaultFilter.addEventListener('click', () => {
@@ -81,7 +79,7 @@ function enableFilters(picturesArray) {
     highlightFilter('filter-discussed');
     debounce(showDiscussedMiniatures)();
   });
-}
+};
 
 export { enableFilters };
 

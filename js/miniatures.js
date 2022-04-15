@@ -1,11 +1,14 @@
-import { maxPic } from './maxPic.js';
+import { enlargePicture } from './maxPic.js';
 import { expandComments } from './expand.js';
 import { enableFilters } from './filtering.js';
 
-const miniaturesDisplay = function (objects) {
+const displayMiniatures = (objects) => {
   const picturesSection = document.querySelector('.pictures');
   const templateContent = document.querySelector('#picture').content;
   const pictureContainer = templateContent.querySelector('.picture');
+  const bigPictureSection = document.querySelector('.big-picture');
+  const closeButton = bigPictureSection.querySelector('.big-picture__cancel');
+  const body = document.querySelector('body');
   const fragment = document.createDocumentFragment();
   const allImages = [];
 
@@ -21,10 +24,35 @@ const miniaturesDisplay = function (objects) {
 
     allImages[i] = pictureContainerCloned;
 
-    pictureContainerCloned.addEventListener('click', () => {
-      maxPic(objects[i]);
+    const onPopupEscKeydown = (evt) => {
+      if (evt.key === 'Escape') {
+        // eslint-disable-next-line no-use-before-define
+        hideModalWindow();
+      }
+    };
+
+    const hideModalWindow = () => {
+      bigPictureSection.classList.add('hidden');
+      body.classList.remove('modal-open');
+      document.querySelector('.social__comments-loader').classList.remove('hidden');
+      closeButton.removeEventListener('click', hideModalWindow);
+      document.removeEventListener('keydown', onPopupEscKeydown);
+      const bigPictureSocialSection = document.querySelector('.big-picture__social');
+      const newButton = document.querySelector('.social__comments-loader').cloneNode(true);
+      const commentField = document.querySelector('.social__footer');
+      document.querySelector('.social__comments-loader').remove();
+      bigPictureSocialSection.insertBefore(newButton, commentField);
+    };
+
+    const showModalWindow = () => {
+      enlargePicture(objects[i]);
       expandComments();
-    });
+      closeButton.addEventListener('click', hideModalWindow);
+      document.addEventListener('keydown', onPopupEscKeydown);
+    };
+
+    pictureContainerCloned.addEventListener('click', showModalWindow);
+
     fragment.append(pictureContainerCloned);
   }
 
@@ -32,4 +60,4 @@ const miniaturesDisplay = function (objects) {
   enableFilters(allImages);
 };
 
-export { miniaturesDisplay };
+export { displayMiniatures };

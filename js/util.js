@@ -1,11 +1,11 @@
-function getRandomPositiveInteger(a, b) {
+const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-}
+};
 
-function refreshForm() {
+const refreshForm = () => {
   const imageUploadInput = document.querySelector('.img-upload__input');
   const imageUploadHashtag = document.querySelector('.text__hashtags');
   const imageUploadComment = document.querySelector('.text__description');
@@ -21,9 +21,9 @@ function refreshForm() {
   scale.value = '100%';
   picturePreview.style = '';
   errorLabel.textContent = '';
-}
+};
 
-function closeModal(refresh) {
+const closeModal = (refresh) => {
   const imageUploadWindow = document.querySelector('.img-upload__overlay');
   const body = document.querySelector('body');
   const imageUploadCloseButton = document.querySelector('.img-upload__cancel');
@@ -33,41 +33,41 @@ function closeModal(refresh) {
     body.classList.remove('modal-open');
     refresh();
   });
-}
+};
 
-function getContentOfTemplate(templateID, sectionClass) {
+const getContentOfTemplate = (templateID, sectionClass) => {
   const template = document.querySelector(`#${templateID}`).content;
   const section = template.querySelector(`.${sectionClass}`);
   const clonedSection = section.cloneNode(true);
   return clonedSection;
-}
+};
 
-function hideElementOnClickOutside(clickElement, hideElement) {
+const hideElementOnClickOutside = (clickElement, hideElement) => {
   document.addEventListener('click', () => {
     hideElement.remove();
   });
   clickElement.addEventListener('click', (evt) => {
     evt.stopPropagation();
   });
-}
+};
 
-function hideElementOnESC(element) {
+const hideElementOnESC = (element) => {
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
       element.remove();
     }
   });
-}
+};
 
-function hideElementOnButtonClick(element) {
+const hideElementOnButtonClick = (element) => {
   const button = element.querySelector('button');
   button.addEventListener('click', (evt) => {
     evt.preventDefault();
     element.remove();
   });
-}
+};
 
-function shuffleArray(array) {
+const shuffleArray = (array) => {
   let currentIndex = array.length, randomIndex;
 
   while (currentIndex !== 0) {
@@ -77,9 +77,8 @@ function shuffleArray(array) {
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
-
   return array;
-}
+};
 
 export {
   getRandomPositiveInteger, refreshForm,
