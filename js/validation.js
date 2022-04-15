@@ -141,11 +141,16 @@ const validateForm = () => {
           method: 'POST',
           body: formData
         },
-      ).then(() => {
-        feedbackOnSubmit('success');
-      }).catch(() => {
-        feedbackOnSubmit('error');
-      });
+      )
+        .then((responce) => {
+          if (responce.ok) {
+            feedbackOnSubmit('success');
+          } else {
+            feedbackOnSubmit('error');
+          }
+        }).catch(() => {
+          feedbackOnSubmit('error');
+        });
     }
   });
 };
